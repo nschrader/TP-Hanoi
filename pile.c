@@ -54,6 +54,21 @@ PILE* Depiler(PILE *pile, int val)
     }
 }
 
+void afficherPile(PILE pile)
+{
+    if (pile == NULL)
+        exit(EXIT_FAILURE);
+    
+    PILE *tmp = pile ;
+    while(tmp != NULL)
+    {
+        printf("%d\n",pile->element);
+        tmp = tmp->suivant;
+    }
+}
+
+
+
 
 
 
