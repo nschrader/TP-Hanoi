@@ -30,4 +30,17 @@
  */
 void hanoi(int n, Stack** src, Stack** aux, Stack** dst);
 
+/**
+ * Affiche les trois piles en horizontale
+ * @param n
+ * Le nombre des plateaux
+ * @param left
+ * La pile à gauche
+ * @param middle
+ * La pile au milieu
+ * @param right
+ * La pile à droite
+ */
+void printStacks(int n, Stack* left, Stack* middle, Stack* right);
+
 #endif

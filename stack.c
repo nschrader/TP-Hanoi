@@ -35,11 +35,3 @@ Stack* pop(Stack *stack, int* i) {
   }
   return next;
 }
-
-void printStack(Stack* stack) {
-  if (stack != NULL) {
-    for (Stack* tmp = stack; tmp != NULL; tmp = tmp->next) {
-      printf("%d\n", tmp->i);
-    }
-  }
-}

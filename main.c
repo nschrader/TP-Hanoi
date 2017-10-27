@@ -23,29 +23,23 @@ static Stack* initHanoiStack() {
   return stack;
 }
 
-static void printStacks() {
-  printStack(src);
-  printStack(aux);
-  printStack(dst);
-}
-
 int main() {
   printf("/********** Test Numéro 1 *************\n");
   printf("Après mise en place d'un Hanoi de taille %d\n", N);
   src = initHanoiStack();
-  printStacks();
+  printStacks(N, src, aux, dst);
   printf("Après execution de hanoi(%d)\n", N);
   hanoi(N, &src, &aux, &dst);
-  printStacks();
+  printStacks(N, src, aux, dst);
 
   printf("/********** Test Numéro 2 *************\n");
   printf("Après mise en place d'un Hanoi de taille %d\n", 4);
   src = dst;
   dst = push(NULL, 5);
-  printStacks();
+  printStacks(N, src, aux, dst);
   printf("Après execution de hanoi(%d)\n", 4);
   hanoi(4, &src, &aux, &dst);
-  printStacks();
+  printStacks(N, src, aux, dst);
 
   printf("/*********** Test Erreur **************\n");
   hanoi(4, &src, &aux, &dst);

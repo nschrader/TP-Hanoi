@@ -58,11 +58,4 @@ Stack* pop(Stack* stack, int* i);
  */
 void move(Stack** src, Stack** dst);
 
-/**
- * Affiche une pile d'entier
- * @param stack
- * Une pile à afficher
- */
-void printStack(Stack* stack);
-
 #endif
