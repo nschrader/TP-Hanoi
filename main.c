@@ -35,7 +35,7 @@ int main() {
   src = initHanoiStack();
   printStacks();
   printf("Après execution de hanoi(%d)\n", N);
-  hanoi(N, src, aux, dst);
+  hanoi(N, &src, &aux, &dst);
   printStacks();
 
   printf("/********** Test Numéro 2 *************\n");
@@ -44,11 +44,11 @@ int main() {
   dst = push(NULL, 5);
   printStacks();
   printf("Après execution de hanoi(%d)\n", 4);
-  hanoi(4, src, aux, dst);
+  hanoi(4, &src, &aux, &dst);
   printStacks();
 
   printf("/*********** Test Erreur **************\n");
-  hanoi(4, src, aux, dst);
+  hanoi(4, &src, &aux, &dst);
   printf("Ne devrait pas arriver ici\n");
 
   return EXIT_SUCCESS;
