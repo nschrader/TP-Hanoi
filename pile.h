@@ -28,7 +28,7 @@ Stack* newStack();
  * @result
  * La nouvelle pile si aucune erreur n'est intervenue, NULL sinon
  */
-Stack* push (Stack* stack, int i);
+Stack* push(Stack* stack, int i);
 
 
 /**

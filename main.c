@@ -12,20 +12,20 @@
  */
 
 Stack* src = NULL;
-Stack* help = NULL;
+Stack* aux = NULL;
 Stack* dst = NULL;
 
 static Stack* initHanoiStack() {
   Stack* stack = NULL;
   for (int i=N; i>0; i--) {
-      stack = pop(stack, i);
+      stack = push(stack, i);
   }
   return stack;
 }
 
 static void printStacks() {
   printStack(src);
-  printStack(help)
+  printStack(aux);
   printStack(dst);
 }
 
@@ -35,20 +35,20 @@ int main() {
   src = initHanoiStack();
   printStacks();
   printf("Après execution de hanoi(%d)\n", N);
-  hanoi(src, help, dst, N);
+  hanoi(N, src, aux, dst);
   printStacks();
 
   printf("/********** Test Numéro 2 *************\n");
   printf("Après mise en place d'un Hanoi de taille %d\n", 4);
   src = dst;
-  dst = push(NULL, 5)
+  dst = push(NULL, 5);
   printStacks();
   printf("Après execution de hanoi(%d)\n", 4);
-  hanoi(src, help, dst, 4);
+  hanoi(4, src, aux, dst);
   printStacks();
 
   printf("/*********** Test Erreur **************\n");
-  hanoi(src, help, dst, 4);
+  hanoi(4, src, aux, dst);
   printf("Ne devrait pas arriver ici\n");
 
   return EXIT_SUCCESS;
