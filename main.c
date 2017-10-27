@@ -1,56 +1,55 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "pile.h"
+#include "hanoi.h"
 
 #define N 9
- 
-/*!
-* \mainpage
-* \brief petit programme de test utilisant le module hanoi et le module pile
-**************************************************/    
 
-/*!***********************************************
-* \brief  le programme crée une pile de N élément et appelle Hanoi, il affiche le resultat puis teste une configuration d'erreur
-**************************************************/    
- int main(int argc,char **argv)	
-{PILE pile1,pile2,pile3;
- int elem,i;
+/**
+ * @mainpage
+ * Petit programme de test utilisant le module hanoi et le module pile
+ */
 
- fprintf(stdout,"/********** test de pile d'entier *************\n");
+Stack* src = NULL;
+Stack* help = NULL;
+Stack* dst = NULL;
 
-  pile1=InitPile();
-  pile2=InitPile();
-  pile3=InitPile();
-  for (i=N;i>0;i--)
-    {
-      elem=i;
-      Empiler(&pile1,elem);
-    }
-  fprintf(stdout,"après mise en place d'un Hanoi de taille %d\n",N);
-  afficherPile(pile1);
-  afficherPile(pile2);
-  afficherPile(pile3);
-  
-  hanoi(&pile1,&pile2,&pile3,N);
-
-  fprintf(stdout,"après execution de hanoi \n");
-  afficherPile(pile1);
-  afficherPile(pile2);
-  afficherPile(pile3);
-
- fprintf(stdout,"/********** test 2 *************\n");
- Empiler(&pile1,5);
- hanoi(&pile3,&pile2,&pile1,4);
- fprintf(stdout,"après execution de hanoi(4) \n");
- afficherPile(pile1);
- afficherPile(pile2);
- afficherPile(pile3);
-
- fprintf(stdout,"/********** test d'une erreur *************\n");
- hanoi(&pile3,&pile2,&pile1,4);
- fprintf(stdout,"/********** ne devrait pas arriver jusqu'ici *************\n");
- 
+static Stack* initHanoiStack() {
+  Stack* stack = NULL;
+  for (int i=N; i>0; i--) {
+      stack = pop(stack, i);
+  }
+  return stack;
 }
 
+static void printStacks() {
+  printStack(src);
+  printStack(help)
+  printStack(dst);
+}
 
+int main() {
+  printf("/********** Test Numéro 1 *************\n");
+  printf("Après mise en place d'un Hanoi de taille %d\n", N);
+  src = initHanoiStack();
+  printStacks();
+  printf("Après execution de hanoi(%d)\n", N);
+  hanoi(src, help, dst, N);
+  printStacks();
 
+  printf("/********** Test Numéro 2 *************\n");
+  printf("Après mise en place d'un Hanoi de taille %d\n", 4);
+  src = dst;
+  dst = push(NULL, 5)
+  printStacks();
+  printf("Après execution de hanoi(%d)\n", 4);
+  hanoi(src, help, dst, 4);
+  printStacks();
+
+  printf("/*********** Test Erreur **************\n");
+  hanoi(src, help, dst, 4);
+  printf("Ne devrait pas arriver ici\n");
+
+  return EXIT_SUCCESS;
+}

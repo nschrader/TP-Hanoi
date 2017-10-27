@@ -1,49 +1,68 @@
-#ifndef pile_h_
-#define pile_h_
+/**
+ * @file
+ * Une espèce de pile objet-orientée
+ */
 
-#include "pile_type.h"
+#ifndef PILE_H
+#define PILE_H
 
-/************************************************
-* \brief  affiche l'erreur et quitte le programme 
-* \param message une chaine de caractère à afficher avant de quitter
-**************************************************/    
-int error1(char *message);	
+/**
+ * Une pile d'entier
+ */
+typedef struct stack {
+  int i;
+  struct stack* next;
+} Stack;
 
-/************************************************
-* \brief  initialise une pile
-**************************************************/    
-PILE InitPile();
+/**
+ * Initialise une pile
+ */
+Stack* newStack();
 
-/************************************************
-* \brief     ajoute l'élément elem au sommet de la pile pointée par ppile
-* \param ppile un pointeur vers la pile 
-* \param elem L'élément à rajouter au sommet de pile
-* \pre Precondition: ppile pointe sur une pile valide
-* \post Postcondition: La pile pointée par ppile a été modifiée:
-          un élément de valeur elem a été rajouté au sommet de pile. 
-* \result La fonction renvoie 0 si aucune erreur n'est intervenue  
-**************************************************/    
-int Empiler (PILE*, int);
+/**
+ * Ajoute l'élément elem au sommet de la pile pointée par ppile
+ * @param stack
+ * Un pointeur vers la pile
+ * @param i
+ * L'élément à rajouter au sommet de pile
+ * @result
+ * La nouvelle pile si aucune erreur n'est intervenue, NULL sinon
+ */
+Stack* push (Stack* stack, int i);
 
 
-/************************************************
-* \brief    Retire l'element du sommet de la pile pointée par ppile et renvoie 
-   sa valeur. 
-* \param ppile un pointeur vers la pile 
-* \pre Precondition: ppile pointe sur une pile valide
-* \post Postcondition: La pile pointée par ppile a été modifiée: son premier 
-          élément a été supprimé (le deuxième élément est donc devenu 
-	  le sommet de pile). 
-* \result Le résultat de la fonction est la 
-	  valeur de l'élément supprimé si aucune erreur n'est intervenue
-* \remark    Si la pile pointé par ppile est vide, la fonction affiche une erreur et interrompt le programme.
-**************************************************/    
-int Depiler(PILE*);	
+/**
+ * Retire l'element du sommet de la pile pointée par et copie sa valeur dans i.
+ * @param stack
+ * Un pointeur vers la pile
+ * @result
+ * La nouvelle pile si aucune erreur n'est intervenue, NULL sinon
+ */
+Stack* pop(Stack* stack, int* i);
 
-/************************************************
-* \brief affiche une pile d'entier
-* \param liste une liste d'entier
-**************************************************/    
-void afficherPile (PILE pile);
+/**
+ * Déplace le sommet de pile d'une pile source (*psource) vers une pile destination (*pdest)
+ * @param src
+ * Un pointeur vers la pile source
+ * @param dst
+ * Un pointeur vers la pile destination
+ * @pre
+ * Les deux piles pointées par src et dst sont des piles de Hanoi valides
+ * (chaque élément est plus petit que le suivant dans la pile).
+ * La pile pointée par src est non-vide.
+ * @post
+ * Si le sommet de la pile pointée par src est de plus petite taille que le
+ * sommet de la pile pointée par dst les deux piles sont modifiées:
+ * Le sommet de pile src est enlevé et rajouté à dest, sinon la fonction
+ * affiche une erreur et interrompt le programme.
+ */
+void move(Stack** src, Stack** dst);
+
+/**
+ * Affiche une pile d'entier
+ * @param stack
+ * Une pile à afficher
+ */
+void printStack(Stack* stack);
 
 #endif
