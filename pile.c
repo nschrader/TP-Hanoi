@@ -1,62 +1,37 @@
-#include "pile_type.h"
 #include <stdlib.h>
+#include <stdio.h>
 
+#include "pile.h"
 
-PILE InitPile()
-{
-    PILE *pile;
-
-    pile = (PILE *)malloc(sizeof(PILE));
-    pile->elem = 0;
-    pile->suivant = NULL;
-    return(pile);
+Stack* newStack() {
+  Stack *stack = malloc(sizeof(Stack));
+  stack->i = 0;
+  stack->next = NULL;
+  return stack;
 }
 
-PILE Empiler(PILE *pile, int a)
-{
-    if(pile == NULL)
-    {
-        pile = initPile();
-        pile-> elem = a;
-        return(pile);
-    }
-    else
-    {
-        PILE *newpile = InitPile();
-        newpile->elem = a;
-        newpile->suivant = pile;
-        return(newpile);
-    }
+Stack* push(Stack* stack, int i) {
+  if(stack == NULL) {
+    stack = newStack();
+    stack->i = i;
+    return stack;
+  } else {
+    Stack* next = newStack();
+    next->i = i;
+    next->next = stack;
+    return next;
+  }
 }
 
-PILE* Depiler(PILE *pile, int val)
-{
-    PILE *tmp = pile;
-
-    if(pile == NULL)
-    {
-        fprintf(stderr,"You kiddin' me ?");
-        return NULL;
-    }
-    else
-    {
-        while(pile = pile->suivant != NULL)
-        {
-            if(pile->element == val)
-            {
-                tmp->suivant = pile->suivant;
-                free(pile);
-                break;
-            }
-            tmp = pile;
-        }
-        return tmp;
-    }
+Stack* pop(Stack *stack, int* i) {
+  Stack* next = NULL;
+  if(stack == NULL) {
+    fprintf(stderr,"Cannot pop: Empty stack");
+    exit(EXIT_FAILURE);
+  } else {
+    *i = stack->i;
+    next = stack->next;
+    free(stack);
+  }
+  return next;
 }
-
-
-
-
-
-    
-
