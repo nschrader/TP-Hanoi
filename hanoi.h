@@ -28,6 +28,6 @@
  * Si La tour de départ contient moins de N éléments ou si le déplacement est
  * impossible, une erreur doit interompre le programme
  */
-void hanoi(int n, Stack *src, Stack* aux, Stack *dst);
+void hanoi(int n, Stack** src, Stack** aux, Stack** dst);
 
 #endif

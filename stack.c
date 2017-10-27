@@ -38,10 +38,8 @@ Stack* pop(Stack *stack, int* i) {
 
 void printStack(Stack* stack) {
   if (stack != NULL) {
-    Stack* tmp = stack;
-    while (tmp != NULL) {
-      printf("%d\n", stack->i);
-      tmp = tmp->next;
+    for (Stack* tmp = stack; tmp != NULL; tmp = tmp->next) {
+      printf("%d\n", tmp->i);
     }
   }
 }
