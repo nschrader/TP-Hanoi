@@ -11,14 +11,14 @@
 /**
  * Resoud le problème de Hanoi de taille N de la pile src vers la pile dst en
  * utilisant la pile de passage aux.
+ * @param n
+ * Taille N
  * @param src
  * Un pointeur vers la pile de départ
  * @param dst
  * Un pointeur vers la pile d'arrivée
  * @param aux
  * Un pointeur vers la pile de passage
- * @param n
- * Taille N
  * @pre
  * Les piles pointées par aux et dst sont telles qu'elle peuvent empiler les
  * N premiers éléments de la pile pointée par src.
@@ -28,6 +28,6 @@
  * Si La tour de départ contient moins de N éléments ou si le déplacement est
  * impossible, une erreur doit interompre le programme
  */
-void hanoi(Stack *src, Stack* aux, Stack *dst, int n);
+void hanoi(int n, Stack *src, Stack* aux, Stack *dst);
 
 #endif
