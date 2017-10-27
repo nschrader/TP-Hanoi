@@ -6,7 +6,7 @@
 #ifndef hanoi_h_
 #define hanoi_h_
 
-#include "pile.h"
+#include "stack.h"
 
 /**
  * Resoud le problème de Hanoi de taille N de la pile src vers la pile dst en

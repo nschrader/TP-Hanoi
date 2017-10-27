@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "pile.h"
+#include "stack.h"
 
 Stack* newStack() {
   Stack *stack = malloc(sizeof(Stack));
