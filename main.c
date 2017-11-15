@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
 
 #include "stack.h"
 #include "hanoi.h"
@@ -11,10 +13,6 @@
  * Petit programme de test utilisant le module hanoi et le module pile
  */
 
-Stack* src = NULL;
-Stack* aux = NULL;
-Stack* dst = NULL;
-
 static Stack* initHanoiStack() {
   Stack* stack = NULL;
   for (int i=N; i>0; i--) {
@@ -23,27 +21,52 @@ static Stack* initHanoiStack() {
   return stack;
 }
 
-int main() {
-  printf("/********** Test Numéro 1 *************\n");
-  printf("Après mise en place d'un Hanoi de taille %d\n", N);
-  src = initHanoiStack();
+static void printTestHeader(char* name, int n, Stack* src, Stack* aux, Stack* dst) {
+  printf("*********** Test %s ***********\n", name);
+  printf("Set up a Hanoi stack of size %d\n\n", N);
   printStacks(N, src, aux, dst);
-  printf("Après execution de hanoi(%d)\n", N);
+}
+
+static void printTestFooter(int n, Stack* src, Stack* aux, Stack* dst) {
+  printf("Executed hanoi(%d)\n\n", n);
+  printStacks(N, src, aux, dst);
+  puts("\n");
+}
+
+static void testNormal() {
+  Stack* src = initHanoiStack();
+  Stack* aux = NULL;
+  Stack* dst = NULL;
+
+  printTestHeader("Normal", N, src, aux, dst);
   hanoi(N, &src, &aux, &dst);
-  printStacks(N, src, aux, dst);
+  printTestFooter(N, src, aux, dst);
+}
 
-  printf("/********** Test Numéro 2 *************\n");
-  printf("Après mise en place d'un Hanoi de taille %d\n", 4);
-  src = dst;
-  dst = push(NULL, 5);
-  printStacks(N, src, aux, dst);
-  printf("Après execution de hanoi(%d)\n", 4);
+static void testAnormal() {
+  Stack* src = initHanoiStack();
+  Stack* aux = NULL;
+  Stack* dst = push(NULL, 5);
+
+  printTestHeader("Anormal", 4, src, aux, dst);
   hanoi(4, &src, &aux, &dst);
-  printStacks(N, src, aux, dst);
+  printTestFooter(4, src, aux, dst);
+}
 
-  printf("/*********** Test Erreur **************\n");
-  hanoi(4, &src, &aux, &dst);
-  printf("Ne devrait pas arriver ici\n");
+static void testFailure() {
+  Stack* src = initHanoiStack();
+  Stack* aux = NULL;
+  Stack* dst = push(NULL, 1);
 
+  printTestHeader("Failure", N, src, aux, dst);
+  printf("Should fail while pushing\n");
+  hanoi(N, &src, &aux, &dst);
+  assert(false); //Should not arrive here
+}
+
+int main() {
+  testNormal();
+  testAnormal();
+  testFailure();
   return EXIT_SUCCESS;
 }
