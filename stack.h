@@ -7,11 +7,19 @@
 #define PILE_H
 
 /**
- * Une pile d'entier
+ * @struct _stack
+ * Une pile d'entier plutôt utilisé sous le nom @ref Stack
+ * @var _stack::i
+ * Valeur de l'entier
+ * @var _stack::next
+ * Prochain élément dans la pile
+ *
+ * @typedef Stack
+ * class like name for @ref _stack
  */
-typedef struct stack {
+typedef struct _stack {
   int i;
-  struct stack* next;
+  struct _stack* next;
 } Stack;
 
 /**
@@ -35,6 +43,8 @@ Stack* push(Stack* stack, int i);
  * Retire l'element du sommet de la pile pointée par et copie sa valeur dans i.
  * @param stack
  * Un pointeur vers la pile
+ * @param i
+ * Pointeur où la valeur de l'ancien sommet sera auvegardée
  * @result
  * La nouvelle pile si aucune erreur n'est intervenue, NULL sinon
  */
