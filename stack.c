@@ -16,17 +16,22 @@ Stack* push(Stack* stack, int i) {
     stack->i = i;
     return stack;
   } else {
-    Stack* next = newStack();
-    next->i = i;
-    next->next = stack;
-    return next;
+    if (i > stack->i) {
+      fprintf(stderr,"Cannot push: Wrong order\n");
+      exit(EXIT_FAILURE);
+    } else {
+      Stack* next = newStack();
+      next->i = i;
+      next->next = stack;
+      return next;
+    }
   }
 }
 
 Stack* pop(Stack *stack, int* i) {
   Stack* next = NULL;
   if(stack == NULL) {
-    fprintf(stderr,"Cannot pop: Empty stack");
+    fprintf(stderr,"Cannot pop: Empty stack\n");
     exit(EXIT_FAILURE);
   } else {
     *i = stack->i;
