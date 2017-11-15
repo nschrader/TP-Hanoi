@@ -12,36 +12,58 @@ void hanoi(int n, Stack** src, Stack** aux, Stack** dst) {
   }
 }
 
-#define newStackIfNull(x) ((x == NULL) ? newStack() : x)
-#define printNChars(n, c) for(int _i = 0; _i < n; _i++, putc(c, stdout))
+#define printNChars(n, c) for(int _i = 0; _i < n; _i++, putchar(c))
 #define N_STACKS 3
 #define OFFSET 5
 
+typedef struct _StackInfo {
+  Stack* stack;
+  int n;
+} StackInfo;
+
+static int exploreDepth(Stack* stack) {
+  int i = 0;
+  while (stack != NULL) {
+    stack = stack->next;
+    i++;
+  }
+  return i;
+}
+
+static void printEmptySlot(int n) {
+  printNChars(n, ' ');
+  putchar('|');
+  printNChars(n + OFFSET, ' ');
+}
+
+static void printSlot(int n, int i) {
+  printNChars(n - i, ' ');
+  printNChars(i, '=');
+  putchar('|');
+  printNChars(i, '=');
+  printNChars(n - i, ' ');
+  printNChars(OFFSET, ' ');
+}
+
 void printStacks(int n, Stack* left, Stack* middle, Stack* right) {
-  Stack* stacks[N_STACKS] = {
-    newStackIfNull(left),
-    newStackIfNull(middle),
-    newStackIfNull(right)
+  StackInfo stacks[N_STACKS] = {
+    { left, exploreDepth(left) },
+    { middle, exploreDepth(middle) },
+    { right, exploreDepth(right) }
   };
 
-  for (int r = 1; r <= n; r++) {
+  for (int r = n; r > 0; r--) {
     for (int c = 0; c < N_STACKS; c++) {
-      if (stacks[c]->i == r) {
-        printNChars(n - r, ' ');
-        printNChars(r, '=');
-        putc('|', stdout);
-        printNChars(r, '=');
-        printNChars(n - r, ' ');
-        printNChars(OFFSET, ' ');
-        stacks[c] = newStackIfNull(stacks[c]->next);
+      if (stacks[c].n >= r) {
+        printSlot(n, stacks[c].stack->i);
+        stacks[c].stack = stacks[c].stack->next;
+        stacks[c].n--;
       } else {
-        printNChars(n, ' ');
-        putc('|', stdout);
-        printNChars(n + OFFSET, ' ');
+        printEmptySlot(n);
       }
     }
-    putc('\n', stdout);
+    putchar('\n');
   }
   printNChars(3*(2*n+OFFSET+1), '-');
-  putc('\n', stdout);
+  putchar('\n');
 }
